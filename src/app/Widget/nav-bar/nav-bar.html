@@ -1,1 +1,36 @@
-
+<div class="flex justify-between">
+  <div class="h-screen w-fit group">
+    <ul
+      class="flex flex-col space-y-4 bg-gray-800 text-white p-4 h-full transition-all duration-300 w-16 group-hover:w-48 overflow-hidden"
+    >
+      <li class="flex items-center mt-4">
+        <fa-icon class="px-2" [icon]="faHouse"></fa-icon>
+        <span
+          class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >Accueil</span
+        >
+      </li>
+      <li class="flex items-center mt-4" [routerLink]="['/gest-employe']">
+        <fa-icon class="px-2" [icon]="faUsers"></fa-icon>
+        <span
+          class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >Employé</span
+        >
+      </li>
+      <li class="flex items-center mt-4" [routerLink]="['/gest-produit']">
+        <fa-icon class="px-2" [icon]="faProductHunt"></fa-icon>
+        <span
+          class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >Produit</span
+        >
+      </li>
+      <li class="flex items-center mt-4" [routerLink]="['/gest-fournissuer']">
+        <fa-icon class="px-2" [icon]="faBoxesPacking"></fa-icon>
+        <span
+          class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          >Fournisseur</span
+        >
+      </li>
+    </ul>
+  </div>
+</div>

@@ -3,6 +3,8 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Auth } from '../../Service/auth';
 import { Router } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-connection-page',
@@ -12,7 +14,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   standalone: true,
 })
 export class ConnectionPage {
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private cookieService: CookieService
+  ) {}
   loginForm = new FormGroup({
     email: new FormControl(' '),
     password: new FormControl(''),
@@ -22,18 +28,40 @@ export class ConnectionPage {
     const email = this.loginForm.get('email')?.value;
     const password = this.loginForm.get('password')?.value;
     if (email && password) {
-      this.auth.login(email, password).subscribe({
-        next: (response: any) => {
-          console.log(response);
+      this.auth.login(email, password).subscribe(
+        (response) => {
           if (response.token) {
-            localStorage.setItem('token', response.token);
-            this.router.navigate(['/dashboard']);
+            this.auth.token = response.token;
+            this.auth.id = response.id;
+            this.auth.role = response.role;
+            this.cookieService.set('role', response.role);
+            this.cookieService.set('token', response.token);
+            this.cookieService.set('id', response.id);
+            if (response.role === 'Admin') {
+              this.router.navigate(['/dashboard']);
+            } else {
+              swal.fire({
+                title: 'Erreur',
+                text: "Nom d'utilisateur ou mot de passe incorrect",
+                icon: 'error',
+              });
+            }
+          } else {
+            swal.fire({
+              title: 'Erreur',
+              text: "Nom d'utilisateur ou mot de passe incorrect",
+              icon: 'error',
+            });
           }
         },
-        error: (error) => {
-          console.error('Login error:', error);
-        },
-      });
+        (error) => {
+          swal.fire({
+            title: 'Erreur',
+            text: "Nom d'utilisateur ou mot de passe incorrect",
+            icon: 'error',
+          });
+        }
+      );
     }
   }
 }
