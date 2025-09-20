@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { NavBar } from '../../Widget/nav-bar/nav-bar';
 import { faSearch, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-gest-employe',
-  imports: [NavBar, FontAwesomeModule],
+  imports: [NavBar, FontAwesomeModule, DatePipe],
   templateUrl: './gest-employe.html',
   styleUrl: './gest-employe.css',
 })

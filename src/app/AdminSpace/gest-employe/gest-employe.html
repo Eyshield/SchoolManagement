@@ -6,7 +6,7 @@
     <div class="w-full p-2 flex items-center">
       <div class="flex-1"></div>
 
-      <div class="flex-1 flex justify-center">
+      <div class="flex-1 flex justify-center mt-4">
         <div class="relative">
           <fa-icon
             [icon]="faSearch"
@@ -21,7 +21,7 @@
         </div>
       </div>
 
-      <div class="flex-1 flex justify-end">
+      <div class="flex-1 flex justify-end mt-4">
         <button class="rounded-lg p-2 bg-blue-500 text-white hover:bg-blue-600">
           <fa-icon [icon]="faSignOut"></fa-icon>
           Deconnexion
@@ -29,27 +29,37 @@
       </div>
     </div>
     <div class="p-4">
-      <h1 class="text-xl font-semibold">Gestion des Employés</h1>
-      <p class="text-gray-600">Gérez les informations des employés ici.</p>
+      <h1 class="text-xl font-semibold text-center">Gestion des Employés</h1>
+
       <div>
         <button
           class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
         >
           Ajouter un Employé
         </button>
-        <div class="mt-4 overflow-x-auto">
-          <table class="min-w-full bg-white border border-gray-200">
+        <div class="mt-4 mr-4 overflow-x-auto">
+          <table class="w-full bg-white border border-gray-200">
             <thead>
               <tr>
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Nom
                 </th>
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
-                  Poste
+                  Prenom
                 </th>
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Email
                 </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Adresse
+                </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Date de naissance
+                </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Poste
+                </th>
+
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Actions
                 </th>
@@ -60,6 +70,15 @@
               <tr>
                 <td class="py-2 px-4 border-b border-gray-200">
                   {{ employe.nom }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.prenom }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.adresse }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.dateNaissance | date : "dd/MM/yyyy" }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
                   {{ employe.poste }}

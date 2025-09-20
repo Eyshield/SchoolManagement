@@ -1,1 +1,112 @@
-<app-nav-bar></app-nav-bar>
+<div class="flex">
+  <div class="w-fit h-fit">
+    <app-nav-bar></app-nav-bar>
+  </div>
+  <div class="flex flex-col w-full">
+    <div class="w-full p-2 flex items-center">
+      <div class="flex-1"></div>
+
+      <div class="flex-1 flex justify-center mt-4">
+        <div class="relative">
+          <fa-icon
+            [icon]="faSearch"
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
+          ></fa-icon>
+
+          <input
+            type="text"
+            class="border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:border-blue-200 outline-none rounded-lg w-64 py-2 pl-10 pr-3"
+            placeholder="Rechercher..."
+          />
+        </div>
+      </div>
+
+      <div class="flex-1 flex justify-end mt-4">
+        <button class="rounded-lg p-2 bg-blue-500 text-white hover:bg-blue-600">
+          <fa-icon [icon]="faSignOut"></fa-icon>
+          Deconnexion
+        </button>
+      </div>
+    </div>
+    <div class="p-4">
+      <h1 class="text-xl font-semibold text-center">
+        Gestion des Fournisseurs
+      </h1>
+
+      <div>
+        <button
+          class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
+        >
+          <fa-icon [icon]="faAdd"></fa-icon>
+          Ajouter un Fournisseurs
+        </button>
+        <div class="mt-4 mr-4 overflow-x-auto">
+          <table class="w-full bg-white border border-gray-200">
+            <thead>
+              <tr>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Nom
+                </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Prenom
+                </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Email
+                </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Adresse
+                </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Date de naissance
+                </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Poste
+                </th>
+
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (employe of fournisseur; track $index) {
+              <tr>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.nom }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.prenom }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.adresse }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.dateNaissance | date : "dd/MM/yyyy" }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.poste }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.email }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  <button
+                    class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 mr-2"
+                  >
+                    Éditer
+                  </button>
+                  <button
+                    class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
+                  >
+                    Supprimer
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
