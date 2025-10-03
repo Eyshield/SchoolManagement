@@ -47,6 +47,9 @@
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Quantite
                 </th>
+                <th class="py-2 px-4 border-b border-gray-200 text-left">
+                  Prix
+                </th>
 
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Actions
@@ -57,10 +60,13 @@
               @for (employe of produit; track $index) {
               <tr>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.nom }}
+                  {{ employe.libelle }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.prenom }}
+                  {{ employe.quantite }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.prix }}
                 </td>
 
                 <td class="py-2 px-4 border-b border-gray-200">

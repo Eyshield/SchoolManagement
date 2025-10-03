@@ -59,9 +59,6 @@
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Date de naissance
                 </th>
-                <th class="py-2 px-4 border-b border-gray-200 text-left">
-                  Poste
-                </th>
 
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Actions
@@ -78,13 +75,10 @@
                   {{ employe.prenom }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.adresse }}
+                  {{ employe.Adresse }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.dateNaissance | date : "dd/MM/yyyy" }}
-                </td>
-                <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.poste }}
+                  {{ employe.DateNaissance | date : "dd/MM/yyyy" }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
                   {{ employe.email }}

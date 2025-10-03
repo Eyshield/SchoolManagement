@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, of } from 'rxjs';
-import { EmployePage } from '../Models/pages.models';
+import { Page } from '../Models/pages.models';
 import { Employe } from '../Models/Employe.models';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../Environnement/environnment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,12 +15,43 @@ export class EmployeService {
   public getAllEmployes(
     size: number,
     number: number
-  ): Observable<EmployePage<Employe>> {
+  ): Observable<Page<Employe>> {
     const token = this.cookieService.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<EmployePage<Employe>>(
-      `http://localhost:8080/api/employes?size=${size}&page=${number}`,
+    return this.http.get<Page<Employe>>(
+      environment.apiUrl + `/employes?size=${size}&page=${number}`,
       { headers }
     );
+  }
+  public getEmployeById(id: number): Observable<Employe> {
+    const token = this.cookieService.get('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<Employe>(environment.apiUrl + `/employes/${id}`, {
+      headers,
+    });
+  }
+
+  public createEmploye(employe: Employe): Observable<Employe> {
+    const token = this.cookieService.get('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.post<Employe>(environment.apiUrl + `/employes`, employe, {
+      headers,
+    });
+  }
+  public updateEmploye(id: number, employe: Employe): Observable<Employe> {
+    const token = this.cookieService.get('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.put<Employe>(
+      environment.apiUrl + `/employes/${id}`,
+      employe,
+      { headers }
+    );
+  }
+  public deleteEmploye(id: number): Observable<void> {
+    const token = this.cookieService.get('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.delete<void>(environment.apiUrl + `/employes/${id}`, {
+      headers,
+    });
   }
 }

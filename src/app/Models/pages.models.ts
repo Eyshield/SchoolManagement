@@ -1,5 +1,5 @@
-export interface EmployePage<Employe> {
-  content: Employe[];
+export interface Page<content> {
+  content: content[];
   totalElements: number;
   totalPages: number;
   size: number; // taille de la page (pageSize)
