@@ -18,21 +18,21 @@ export class ProduitService {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.get<Page<Produit>>(
-      environment.apiUrl + `/produits?size=${size}&page=${number}`,
+      environment.apiUrl + `/produit?size=${size}&page=${number}`,
       { headers }
     );
   }
   public getProduitById(id: number): Observable<Produit> {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<Produit>(environment.apiUrl + `/produits/${id}`, {
+    return this.http.get<Produit>(environment.apiUrl + `/produit/${id}`, {
       headers,
     });
   }
   public createProduit(produit: Produit): Observable<Produit> {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.post<Produit>(environment.apiUrl + `/produits`, produit, {
+    return this.http.post<Produit>(environment.apiUrl + `/produit`, produit, {
       headers,
     });
   }
@@ -40,7 +40,7 @@ export class ProduitService {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.put<Produit>(
-      environment.apiUrl + `/produits/${id}`,
+      environment.apiUrl + `/produit/${id}`,
       produit,
       { headers }
     );
@@ -48,7 +48,7 @@ export class ProduitService {
   public deleteProduit(id: number): Observable<void> {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.delete<void>(environment.apiUrl + `/produits/${id}`, {
+    return this.http.delete<void>(environment.apiUrl + `/produit/${id}`, {
       headers,
     });
   }

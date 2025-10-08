@@ -1,1 +1,74 @@
-<p>add-produit works!</p>
+<div class="flex">
+  <div class="w-fit h-fit">
+    <app-nav-bar></app-nav-bar>
+  </div>
+  <div class="flex flex-col w-full">
+    <div class="w-full p-2 flex items-center">
+      <div class="flex-1"></div>
+      <div class="flex-1"></div>
+
+      <div class="flex-1 flex justify-end mt-4">
+        <button class="rounded-lg p-2 bg-blue-500 text-white hover:bg-blue-600">
+          <fa-icon [icon]="faSignOut"></fa-icon>
+          Deconnexion
+        </button>
+      </div>
+    </div>
+    <div class="p-4">
+      <h1 class="text-xl font-semibold text-center">Ajouter un produit</h1>
+
+      <form class="mt-6 space-y-4">
+        <div class="flex space-x-4 justify-center">
+          <div class="mb-4 w-1/3">
+            <label for="libelle" class="block text-gray-700 font-semibold mb-2"
+              >Libelle</label
+            >
+            <input
+              type="text"
+              id="libelle"
+              name="libelle"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+          </div>
+
+          <div class="mb-4 w-1/3">
+            <label for="prix" class="block text-gray-700 font-semibold mb-2"
+              >Prix</label
+            >
+            <input
+              type="number"
+              id="prix"
+              name="prix"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+          </div>
+        </div>
+        <div class="flex space-x-4 justify-center">
+          <div class="mb-4 w-1/3">
+            <label for="quantite" class="block text-gray-700 font-semibold mb-2"
+              >Quantite</label
+            >
+            <input
+              type="quantite"
+              id="quantite"
+              name="quantite"
+              required
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+            />
+          </div>
+        </div>
+
+        <div class="text-center">
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+          >
+            Ajouter produit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

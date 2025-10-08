@@ -20,7 +20,7 @@ export class ConnectionPage {
     private cookieService: CookieService
   ) {}
   loginForm = new FormGroup({
-    email: new FormControl(' '),
+    email: new FormControl(''),
     password: new FormControl(''),
   });
 

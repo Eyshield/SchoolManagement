@@ -5,6 +5,7 @@ import { faAdd, faSearch, faSignOut } from '@fortawesome/free-solid-svg-icons';
 import { Page } from '../../Models/pages.models';
 import { Produit } from '../../Models/Produit.models';
 import { ProduitService } from '../../Service/produit-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gest-produit',
@@ -29,7 +30,7 @@ export class GestProduit implements OnInit {
   faSearch = faSearch;
   faSignOut = faSignOut;
   faAdd = faAdd;
-  constructor(private produitService: ProduitService) {}
+  constructor(private produitService: ProduitService, private router: Router) {}
   ngOnInit(): void {
     this.produitService
       .getAllProduits(this.produitPage.size, this.produitPage.number)
@@ -37,5 +38,14 @@ export class GestProduit implements OnInit {
         this.produitPage = data;
         this.produit = data.content;
       });
+  }
+  deleteEmployee(id: number) {
+    this.produitService.deleteProduit(id).subscribe(() => {});
+  }
+  navigateToEditEmployee(id: number) {
+    this.router.navigate([`/edit-produit/${id}`]);
+  }
+  navigateToAddEmployee() {
+    this.router.navigate(['/Add-produit']);
   }
 }

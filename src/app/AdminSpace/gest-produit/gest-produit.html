@@ -29,13 +29,14 @@
       </div>
     </div>
     <div class="p-4">
-      <h1 class="text-xl font-semibold text-center">Gestion des Employés</h1>
+      <h1 class="text-xl font-semibold text-center">Gestion des produits</h1>
 
       <div>
         <button
+          (click)="navigateToAddEmployee()"
           class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
         >
-          Ajouter un Employé
+          Ajouter un produit
         </button>
         <div class="mt-4 mr-4 overflow-x-auto">
           <table class="w-full bg-white border border-gray-200">
@@ -57,25 +58,27 @@
               </tr>
             </thead>
             <tbody>
-              @for (employe of produit; track $index) {
+              @for (produit of produit; track $index) {
               <tr>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.libelle }}
+                  {{ produit.libelle }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.quantite }}
+                  {{ produit.quantite }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.prix }}
+                  {{ produit.prix }}
                 </td>
 
                 <td class="py-2 px-4 border-b border-gray-200">
                   <button
+                    (click)="navigateToEditEmployee(produit.id)"
                     class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 mr-2"
                   >
                     Éditer
                   </button>
                   <button
+                    (click)="deleteEmployee(produit.id)"
                     class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
                   >
                     Supprimer

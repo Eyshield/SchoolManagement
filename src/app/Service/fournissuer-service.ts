@@ -17,7 +17,7 @@ export class FournissuerService {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.get<Page<Fournisseur>>(
-      environment.apiUrl + `/fournisseurs?size=${size}&page=${number}`,
+      environment.apiUrl + `/fournisseur?size=${size}&page=${number}`,
       { headers }
     );
   }
@@ -25,7 +25,7 @@ export class FournissuerService {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.get<Fournisseur>(
-      environment.apiUrl + `/fournisseurs/${id}`,
+      environment.apiUrl + `/fournisseur/${id}`,
       { headers }
     );
   }
@@ -33,7 +33,7 @@ export class FournissuerService {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.post<Fournisseur>(
-      environment.apiUrl + `/fournisseurs`,
+      environment.apiUrl + `/fournisseur`,
       fournisseur,
       { headers }
     );
@@ -45,7 +45,7 @@ export class FournissuerService {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.put<Fournisseur>(
-      environment.apiUrl + `/fournisseurs/${id}`,
+      environment.apiUrl + `/fournisseur/${id}`,
       fournisseur,
       { headers }
     );
@@ -53,7 +53,7 @@ export class FournissuerService {
   deleteFournisseur(id: number): Observable<void> {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.delete<void>(environment.apiUrl + `/fournisseurs/${id}`, {
+    return this.http.delete<void>(environment.apiUrl + `/fournisseur/${id}`, {
       headers,
     });
   }

@@ -6,6 +6,9 @@ import { NavBar } from './Widget/nav-bar/nav-bar';
 import { GestProduit } from './AdminSpace/gest-produit/gest-produit';
 import { GestEmploye } from './AdminSpace/gest-employe/gest-employe';
 import { GestFournissuer } from './AdminSpace/gest-fournissuer/gest-fournissuer';
+import { AddEmploye } from './Add/add-employe/add-employe';
+import { AddFournisseur } from './Add/add-fournisseur/add-fournisseur';
+import { AddProduit } from './Add/add-produit/add-produit';
 
 export const routes: Routes = [
   { path: '', component: ConnectionPage },
@@ -14,4 +17,10 @@ export const routes: Routes = [
   { path: 'gest-produit', component: GestProduit },
   { path: 'gest-employe', component: GestEmploye },
   { path: 'gest-fournissuer', component: GestFournissuer },
+  { path: 'Add-employe', component: AddEmploye },
+  { path: 'edit-employe/:id', component: AddEmploye },
+  { path: 'Add-fournisseur', component: AddFournisseur },
+  { path: 'edit-fournisseur/:id', component: AddFournisseur },
+  { path: 'Add-produit', component: AddProduit },
+  { path: 'edit-produit/:id', component: AddProduit },
 ];

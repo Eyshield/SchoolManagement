@@ -19,14 +19,14 @@ export class EmployeService {
     const token = this.cookieService.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.get<Page<Employe>>(
-      environment.apiUrl + `/employes?size=${size}&page=${number}`,
+      environment.apiUrl + `/utilisateur?size=${size}&page=${number}`,
       { headers }
     );
   }
   public getEmployeById(id: number): Observable<Employe> {
     const token = this.cookieService.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<Employe>(environment.apiUrl + `/employes/${id}`, {
+    return this.http.get<Employe>(environment.apiUrl + `/utilisateur/${id}`, {
       headers,
     });
   }
@@ -34,15 +34,19 @@ export class EmployeService {
   public createEmploye(employe: Employe): Observable<Employe> {
     const token = this.cookieService.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.post<Employe>(environment.apiUrl + `/employes`, employe, {
-      headers,
-    });
+    return this.http.post<Employe>(
+      environment.apiUrl + `/utilisateur`,
+      employe,
+      {
+        headers,
+      }
+    );
   }
   public updateEmploye(id: number, employe: Employe): Observable<Employe> {
     const token = this.cookieService.get('token');
     const headers = { Authorization: `Bearer ${token}` };
     return this.http.put<Employe>(
-      environment.apiUrl + `/employes/${id}`,
+      environment.apiUrl + `/utilisateur/${id}`,
       employe,
       { headers }
     );
@@ -50,7 +54,7 @@ export class EmployeService {
   public deleteEmploye(id: number): Observable<void> {
     const token = this.cookieService.get('token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.delete<void>(environment.apiUrl + `/employes/${id}`, {
+    return this.http.delete<void>(environment.apiUrl + `/utilisateur/${id}`, {
       headers,
     });
   }

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { EmployeService } from '../../Service/employe-service';
 import { Employe } from '../../Models/Employe.models';
 import { Page } from '../../Models/pages.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gest-employe',
@@ -21,15 +22,15 @@ export class GestEmploye implements OnInit {
     content: [],
     totalElements: 0,
     totalPages: 0,
-    size: 0,
-    number: 8,
+    size: 8,
+    number: 0,
     first: true,
     last: true,
     numberOfElements: 0,
     empty: true,
   };
 
-  constructor(private employeService: EmployeService) {}
+  constructor(private employeService: EmployeService, private router: Router) {}
   ngOnInit(): void {
     this.employeService
       .getAllEmployes(this.employePage.size, this.employePage.number)
@@ -38,13 +39,13 @@ export class GestEmploye implements OnInit {
         this.employe = data.content;
       });
   }
-  addEmploye() {
-    throw new Error('Method not implemented.');
+  navigateToAddEmployee() {
+    this.router.navigate(['/Add-employe']);
   }
-  deleteEmploye(arg0: any) {
-    throw new Error('Method not implemented.');
+  deleteEmployee(id: number) {
+    this.employeService.deleteEmploye(id).subscribe(() => {});
   }
-  editEmploye(_t14: any) {
-    throw new Error('Method not implemented.');
+  navigateToEditEmployee(id: number) {
+    this.router.navigate([`/edit-employe/${id}`]);
   }
 }

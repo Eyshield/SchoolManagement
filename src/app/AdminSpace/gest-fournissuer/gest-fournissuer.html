@@ -35,6 +35,7 @@
 
       <div>
         <button
+          (click)="navigateToAddFournisseur()"
           class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
         >
           <fa-icon [icon]="faAdd"></fa-icon>
@@ -66,30 +67,32 @@
               </tr>
             </thead>
             <tbody>
-              @for (employe of fournisseur; track $index) {
+              @for (fournisseur of fournisseur; track $index) {
               <tr>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.nom }}
+                  {{ fournisseur.nom }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.prenom }}
+                  {{ fournisseur.prenom }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.Adresse }}
+                  {{ fournisseur.Adresse }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.DateNaissance | date : "dd/MM/yyyy" }}
+                  {{ fournisseur.DateNaissance | date : "dd/MM/yyyy" }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.email }}
+                  {{ fournisseur.email }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
                   <button
+                    (click)="navigateToEditFournisseur(fournisseur.id)"
                     class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 mr-2"
                   >
                     Éditer
                   </button>
                   <button
+                    (click)="deleteFournisseur(fournisseur.id)"
                     class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
                   >
                     Supprimer

@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { FournissuerService } from '../../Service/fournissuer-service';
 import { Fournisseur } from '../../Models/Fournisseurs.models';
 import { Page } from '../../Models/pages.models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gest-fournissuer',
@@ -29,7 +30,10 @@ export class GestFournissuer implements OnInit {
   faSearch = faSearch;
   faSignOut = faSignOut;
   faAdd = faAdd;
-  constructor(private fournisseurService: FournissuerService) {}
+  constructor(
+    private fournisseurService: FournissuerService,
+    private router: Router
+  ) {}
   ngOnInit(): void {
     this.fournisseurService
       .getAllFournisseurs(this.founissuerPage.size, this.founissuerPage.number)
@@ -37,5 +41,14 @@ export class GestFournissuer implements OnInit {
         this.founissuerPage = data;
         this.fournisseur = data.content;
       });
+  }
+  deleteFournisseur(id: number) {
+    this.fournisseurService.deleteFournisseur(id).subscribe(() => {});
+  }
+  navigateToEditFournisseur(id: number) {
+    this.router.navigate([`/edit-fournisseur/${id}`]);
+  }
+  navigateToAddFournisseur() {
+    this.router.navigate(['/Add-fournisseur']);
   }
 }
