@@ -1,5 +1,6 @@
 package dz.school.Managing.controller;
 
+import dz.school.Managing.DTO.PageResponse;
 import dz.school.Managing.entity.Utilisateur;
 import dz.school.Managing.service.interfaces.UtilisateurService;
 import lombok.AllArgsConstructor;
@@ -26,11 +27,21 @@ public class UtilisateurController {
 
     // Récupérer tous les utilisateurs avec pagination
     @GetMapping
-    public ResponseEntity<Page<Utilisateur>> obtenirTousUtilisateurs(Pageable pageable) {
+    public ResponseEntity<PageResponse<Utilisateur>> obtenirTousUtilisateurs(Pageable pageable) {
         try {
             Page<Utilisateur> utilisateurs = utilisateurService.FindAllUtilisateur(pageable);
-            return new ResponseEntity<>(utilisateurs, HttpStatus.OK);
+            PageResponse<Utilisateur> response = new PageResponse<>(
+                    utilisateurs.getContent(),
+                    utilisateurs.getNumber(),
+                    utilisateurs.getSize(),
+                    utilisateurs.getTotalElements(),
+                    utilisateurs.getTotalPages(),
+                    utilisateurs.isFirst(),
+                    utilisateurs.isLast()
+            );
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

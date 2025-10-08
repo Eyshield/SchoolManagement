@@ -4,6 +4,7 @@ import dz.school.Managing.entity.Fournisseur;
 import dz.school.Managing.repository.FournisseurRepo;
 import dz.school.Managing.service.interfaces.FournisseurService;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,6 @@ public class ImplFournisseurService implements FournisseurService {
 
     @Override
     public Page<Fournisseur> FindAllFournisseur(Pageable pageable) {
-        return fournisseurRepo.findAllFournisseur(pageable);
+        return fournisseurRepo.findAll(pageable);
     }
 }

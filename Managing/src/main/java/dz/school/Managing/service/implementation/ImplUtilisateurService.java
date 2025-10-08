@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
+
 public class ImplUtilisateurService implements UtilisateurService {
     private UtilisateurRepo utilisateurRepo;
     private PasswordEncoder passwordEncoder;

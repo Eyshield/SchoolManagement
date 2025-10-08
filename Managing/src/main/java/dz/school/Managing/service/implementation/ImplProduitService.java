@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-@NoArgsConstructor
 public class ImplProduitService implements ProduitService {
     private ProduitRepo produitRepo;
     @Override
@@ -42,6 +41,6 @@ public class ImplProduitService implements ProduitService {
 
     @Override
     public Page<Produit> FindAllProduit(Pageable pageable) {
-        return produitRepo.findAllProduit(pageable);
+        return produitRepo.findAll(pageable);
     }
 }

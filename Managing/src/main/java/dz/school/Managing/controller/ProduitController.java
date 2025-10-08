@@ -1,5 +1,6 @@
 package dz.school.Managing.controller;
 
+import dz.school.Managing.DTO.PageResponse;
 import dz.school.Managing.entity.Produit;
 import dz.school.Managing.service.interfaces.ProduitService;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class ProduitController {
         }
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> supprimerProduit(@PathVariable Long id){
         String op = produitService.DeleteProduit(id);
         try {
@@ -64,10 +65,19 @@ public class ProduitController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Produit>> obetenirToutLesProduits(Pageable pageable){
+    public ResponseEntity<PageResponse<Produit>> obetenirToutLesProduits(Pageable pageable){
         Page<Produit> produits = produitService.FindAllProduit(pageable);
+        PageResponse<Produit>response=new PageResponse<>(
+                produits.getContent(),
+                produits.getNumber(),
+                produits.getSize(),
+                produits.getTotalElements(),
+                produits.getTotalPages(),
+                produits.isFirst(),
+                produits.isLast()
+        );
         try {
-            return new ResponseEntity<>(produits,HttpStatus.OK);
+            return new ResponseEntity<>(response,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
         }

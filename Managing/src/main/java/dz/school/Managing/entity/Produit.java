@@ -20,6 +20,6 @@ public class Produit implements Serializable {
     @Column(nullable = false)
     private String Libelle;
     private int Quantite;
-    @ManyToMany(mappedBy = "produit")
+    @ManyToMany(mappedBy = "produits")
     private Collection<Fournisseur> fournisseurs = new ArrayList<>();
 }

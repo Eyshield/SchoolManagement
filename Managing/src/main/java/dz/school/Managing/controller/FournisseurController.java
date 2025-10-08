@@ -1,6 +1,7 @@
 package dz.school.Managing.controller;
 
 
+import dz.school.Managing.DTO.PageResponse;
 import dz.school.Managing.entity.Fournisseur;
 import dz.school.Managing.service.interfaces.FournisseurService;
 import lombok.AllArgsConstructor;
@@ -37,10 +38,19 @@ public class FournisseurController {
 
     }
     @GetMapping
-    public ResponseEntity<Page<Fournisseur>> ObetenirToutLesFournisseur(Pageable pageable){
+    public ResponseEntity<PageResponse<Fournisseur>> ObetenirToutLesFournisseur(Pageable pageable){
         Page<Fournisseur> fournisseurs = fournisseurService.FindAllFournisseur(pageable);
+        PageResponse<Fournisseur>response = new PageResponse<>(
+                fournisseurs.getContent(),
+                fournisseurs.getNumber(),
+                fournisseurs.getSize(),
+                fournisseurs.getTotalElements(),
+                fournisseurs.getTotalPages(),
+                fournisseurs.isFirst(),
+                fournisseurs.isLast()
+        );
         try {
-            return new ResponseEntity<>(fournisseurs,HttpStatus.OK);
+            return new ResponseEntity<>(response,HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
         }
