@@ -1,8 +1,11 @@
+import { Produit } from './Produit.models';
+
 export interface Fournisseur {
-  id: number;
+  id?: number;
   nom: string;
   prenom: string;
   email: string;
-  Adresse: string;
-  DateNaissance: Date;
+  adresse: string;
+  dateNaissance: Date;
+  produits?: Produit[];
 }

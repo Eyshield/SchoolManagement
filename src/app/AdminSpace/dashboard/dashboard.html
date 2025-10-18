@@ -1,1 +1,75 @@
-<app-nav-bar></app-nav-bar>
+<div class="flex">
+  <div class="w-fit h-fit">
+    <app-nav-bar></app-nav-bar>
+  </div>
+
+  <div class="w-full p-6 lg:p-8">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <h1 class="text-3xl font-bold text-gray-900">Tableau de Bord</h1>
+        <p class="text-gray-600 mt-1">
+          Bienvenue sur votre espace d'administration
+        </p>
+      </div>
+      <button
+        class="rounded-lg p-2 bg-blue-500 text-white hover:bg-blue-600"
+        (click)="logout()"
+      >
+        <fa-icon [icon]="faSignOut"></fa-icon>
+        Déconnexion
+      </button>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div
+        class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border-l-4 border-blue-500"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Total Employés</p>
+            <p class="text-4xl font-bold text-gray-900 mt-2">
+              {{ nbEmployes }}
+            </p>
+          </div>
+          <div class="bg-blue-100 p-4 rounded-lg">
+            <fa-icon [icon]="faUsers" class="text-blue-500 text-2xl"></fa-icon>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border-l-4 border-green-500"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Total Fournisseurs</p>
+            <p class="text-4xl font-bold text-gray-900 mt-2">
+              {{ nbFournisseurs }}
+            </p>
+          </div>
+          <div class="bg-green-100 p-4 rounded-lg">
+            <fa-icon [icon]="faBox" class="text-green-500 text-2xl"></fa-icon>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 p-6 border-l-4 border-purple-500"
+      >
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-gray-600 text-sm font-medium">Total Produits</p>
+            <p class="text-4xl font-bold text-gray-900 mt-2">
+              {{ nbProduits }}
+            </p>
+          </div>
+          <div class="bg-purple-100 p-4 rounded-lg">
+            <fa-icon
+              [icon]="faShoppingCart"
+              class="text-purple-500 text-2xl"
+            ></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

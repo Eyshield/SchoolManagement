@@ -7,10 +7,18 @@ import { EmployeService } from '../../Service/employe-service';
 import { Employe } from '../../Models/Employe.models';
 import { Page } from '../../Models/pages.models';
 import { Router } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  ɵInternalFormsSharedModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { Auth } from '../../Service/auth';
 
 @Component({
   selector: 'app-gest-employe',
-  imports: [NavBar, FontAwesomeModule, DatePipe],
+  imports: [NavBar, FontAwesomeModule, DatePipe, ReactiveFormsModule],
   templateUrl: './gest-employe.html',
   styleUrl: './gest-employe.css',
 })
@@ -30,15 +38,47 @@ export class GestEmploye implements OnInit {
     empty: true,
   };
 
-  constructor(private employeService: EmployeService, private router: Router) {}
+  searchTerm = new FormControl('');
+
+  constructor(
+    private employeService: EmployeService,
+    private router: Router,
+    private authservice: Auth
+  ) {}
   ngOnInit(): void {
-    this.employeService
-      .getAllEmployes(this.employePage.size, this.employePage.number)
-      .subscribe((data) => {
-        this.employePage = data;
-        this.employe = data.content;
-      });
+    this.loadEmployes();
   }
+  loadEmployes() {
+    if (this.searchTerm.value && this.searchTerm.value !== '') {
+      this.employeService
+        .searchEmployes(this.searchTerm!.value)
+        .subscribe((data) => {
+          this.employe = data.content;
+          this.employePage = data;
+        });
+    } else {
+      this.employeService
+        .getAllEmployes(this.employePage.size, this.employePage.number)
+        .subscribe((data) => {
+          this.employePage = data;
+          this.employe = data.content;
+        });
+    }
+  }
+  nextPage() {
+    if (this.employePage.number < this.employePage.totalPages - 1) {
+      this.employePage.number++;
+      this.loadEmployes();
+    }
+  }
+
+  prevPage() {
+    if (this.employePage.number > 0) {
+      this.employePage.number--;
+      this.loadEmployes();
+    }
+  }
+
   navigateToAddEmployee() {
     this.router.navigate(['/Add-employe']);
   }
@@ -47,5 +87,9 @@ export class GestEmploye implements OnInit {
   }
   navigateToEditEmployee(id: number) {
     this.router.navigate([`/edit-employe/${id}`]);
+  }
+  logout() {
+    this.authservice.logout();
+    this.router.navigate(['/login']);
   }
 }

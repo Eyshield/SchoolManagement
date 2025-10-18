@@ -1,10 +1,10 @@
 export interface Employe {
-  id: number;
+  id?: number;
   nom: string;
   prenom: string;
   email: string;
   password: string;
-  Adresse: string;
-  poste: string;
-  DateNaissance: Date;
+  role: string;
+  adresse: string;
+  dateNaissance: Date;
 }

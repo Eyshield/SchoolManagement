@@ -1,5 +1,5 @@
 export interface Produit {
-  id: number;
+  id?: number;
   libelle: string;
   prix: number;
   quantite: number;

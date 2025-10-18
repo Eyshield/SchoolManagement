@@ -58,4 +58,13 @@ export class EmployeService {
       headers,
     });
   }
+
+  public searchEmployes(nom: string): Observable<Page<Employe>> {
+    const token = this.cookieService.get('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<Page<Employe>>(
+      environment.apiUrl + `/utilisateur/search?nom=${nom}`,
+      { headers }
+    );
+  }
 }

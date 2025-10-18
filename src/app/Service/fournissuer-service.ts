@@ -5,6 +5,7 @@ import { environment } from '../Environnement/environnment';
 import { Observable } from 'rxjs';
 import { Page } from '../Models/pages.models';
 import { Fournisseur } from '../Models/Fournisseurs.models';
+import { Produit } from '../Models/Produit.models';
 @Injectable({
   providedIn: 'root',
 })
@@ -29,24 +30,36 @@ export class FournissuerService {
       { headers }
     );
   }
-  createFournisseur(fournisseur: Fournisseur): Observable<Fournisseur> {
+  createFournisseur(
+    fournisseur: Fournisseur,
+    produitIds: number[]
+  ): Observable<Fournisseur> {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
+    const body = {
+      fournisseur: fournisseur,
+      produitIds: produitIds,
+    };
     return this.http.post<Fournisseur>(
       environment.apiUrl + `/fournisseur`,
-      fournisseur,
+      body,
       { headers }
     );
   }
   updateFournisseur(
     id: number,
-    fournisseur: Fournisseur
+    fournisseur: Fournisseur,
+    produitIds: number[]
   ): Observable<Fournisseur> {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
+    const body = {
+      fournisseur: fournisseur,
+      produitIds: produitIds,
+    };
     return this.http.put<Fournisseur>(
       environment.apiUrl + `/fournisseur/${id}`,
-      fournisseur,
+      body,
       { headers }
     );
   }
@@ -56,5 +69,14 @@ export class FournissuerService {
     return this.http.delete<void>(environment.apiUrl + `/fournisseur/${id}`, {
       headers,
     });
+  }
+
+  public searchFournisseurs(nom: string): Observable<Page<Fournisseur>> {
+    const token = this.cookie.get('token');
+    const headers = { Authorizarion: `Bearer ${token}` };
+    return this.http.get<Page<Fournisseur>>(
+      environment.apiUrl + `/fournisseur/search?nom=${nom}`,
+      { headers }
+    );
   }
 }

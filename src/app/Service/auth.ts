@@ -36,9 +36,16 @@ export class Auth {
             this.cookie.set('id', response.id);
 
             this.loggedIn = true;
-            // Vous pouvez également extraire et stocker d'autres informations du token si nécessaire
           }
         })
       );
+  }
+  logout(): void {
+    this.token = '';
+    this.role = '';
+    this.loggedIn = false;
+    this.cookie.delete('token');
+    this.cookie.delete('role');
+    this.cookie.delete('id');
   }
 }

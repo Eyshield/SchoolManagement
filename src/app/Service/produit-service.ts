@@ -36,6 +36,15 @@ export class ProduitService {
       headers,
     });
   }
+
+  public ListProduit(): Observable<Produit[]> {
+    const token = this.cookie.get('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<Produit[]>(environment.apiUrl + `/produit/all`, {
+      headers,
+    });
+  }
+
   public updateProduit(id: number, produit: Produit): Observable<Produit> {
     const token = this.cookie.get('token');
     const headers = { Authorization: `Bearer ${token}` };
@@ -51,5 +60,14 @@ export class ProduitService {
     return this.http.delete<void>(environment.apiUrl + `/produit/${id}`, {
       headers,
     });
+  }
+
+  public searchProduits(libelle: string): Observable<Page<Produit>> {
+    const token = this.cookie.get('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    return this.http.get<Page<Produit>>(
+      environment.apiUrl + `/produit/search?libelle=${libelle}`,
+      { headers }
+    );
   }
 }

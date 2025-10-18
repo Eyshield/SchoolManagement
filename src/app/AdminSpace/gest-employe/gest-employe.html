@@ -14,6 +14,8 @@
           ></fa-icon>
 
           <input
+            [formControl]="searchTerm"
+            (input)="loadEmployes()"
             type="text"
             class="border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:border-blue-200 outline-none rounded-lg w-64 py-2 pl-10 pr-3"
             placeholder="Rechercher..."
@@ -22,7 +24,10 @@
       </div>
 
       <div class="flex-1 flex justify-end mt-4">
-        <button class="rounded-lg p-2 bg-blue-500 text-white hover:bg-blue-600">
+        <button
+          class="rounded-lg p-2 bg-blue-500 text-white hover:bg-blue-600"
+          (click)="logout()"
+        >
           <fa-icon [icon]="faSignOut"></fa-icon>
           Deconnexion
         </button>
@@ -57,9 +62,6 @@
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Date de naissance
                 </th>
-                <th class="py-2 px-4 border-b border-gray-200 text-left">
-                  Poste
-                </th>
 
                 <th class="py-2 px-4 border-b border-gray-200 text-left">
                   Actions
@@ -76,26 +78,24 @@
                   {{ employe.prenom }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.Adresse }}
-                </td>
-                <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.DateNaissance | date : "dd/MM/yyyy" }}
-                </td>
-                <td class="py-2 px-4 border-b border-gray-200">
-                  {{ employe.poste }}
-                </td>
-                <td class="py-2 px-4 border-b border-gray-200">
                   {{ employe.email }}
                 </td>
                 <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.adresse }}
+                </td>
+                <td class="py-2 px-4 border-b border-gray-200">
+                  {{ employe.dateNaissance | date : "dd/MM/yyyy" }}
+                </td>
+
+                <td class="py-2 px-4 border-b border-gray-200">
                   <button
-                    (click)="navigateToEditEmployee(employe.id)"
+                    (click)="navigateToEditEmployee(employe.id!)"
                     class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 mr-2"
                   >
                     Éditer
                   </button>
                   <button
-                    (click)="deleteEmployee(employe.id)"
+                    (click)="deleteEmployee(employe.id!)"
                     class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600"
                   >
                     Supprimer
@@ -105,6 +105,25 @@
               }
             </tbody>
           </table>
+        </div>
+        <div class="flex justify-center space-x-4 mt-4">
+          <button
+            class="border rounded-lg px-1 py-2 hover:shadow-lg hover:border-blue-700"
+            (click)="prevPage()"
+          >
+            precedant
+          </button>
+          <span class="px-2 py-1"
+            >Page {{ employePage.number + 1 }} sur
+            {{ employePage.totalPages }}</span
+          >
+
+          <button
+            class="border rounded-lg px-1 py-2 hover:shadow-lg hover:border-blue-700"
+            (click)="nextPage()"
+          >
+            suivant
+          </button>
         </div>
       </div>
     </div>
