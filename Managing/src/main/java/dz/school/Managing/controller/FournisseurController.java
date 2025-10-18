@@ -1,0 +1,115 @@
+package dz.school.Managing.controller;
+
+
+import dz.school.Managing.DTO.FournisseurDto;
+import dz.school.Managing.DTO.PageResponse;
+import dz.school.Managing.entity.Fournisseur;
+import dz.school.Managing.service.interfaces.FournisseurService;
+import lombok.AllArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/fournisseur")
+@AllArgsConstructor
+public class FournisseurController {
+    private FournisseurService fournisseurService;
+    @PostMapping
+    public ResponseEntity<Fournisseur> creerFournisseur(@RequestBody FournisseurDto fournisseurDto){
+        Fournisseur fournisseur1 = fournisseurService.AddFourinisseur(fournisseurDto.getFournisseur(),fournisseurDto.getProduitIds());
+        try {
+            return new ResponseEntity<>(fournisseur1, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);}
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Fournisseur> obtenirFournisseurParId(@PathVariable Long id){
+        Fournisseur fournisseur = fournisseurService.GetFournisseur(id);
+
+        try {
+            return new ResponseEntity<>(fournisseur,HttpStatus.OK);
+
+        }catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+
+        }
+
+    }
+    @GetMapping
+    public ResponseEntity<PageResponse<Fournisseur>> ObetenirToutLesFournisseur(Pageable pageable){
+        Page<Fournisseur> fournisseurs = fournisseurService.FindAllFournisseur(pageable);
+        PageResponse<Fournisseur>response = new PageResponse<>(
+                fournisseurs.getContent(),
+                fournisseurs.getNumber(),
+                fournisseurs.getSize(),
+                fournisseurs.getTotalElements(),
+                fournisseurs.getTotalPages(),
+                fournisseurs.isFirst(),
+                fournisseurs.isLast()
+        );
+        try {
+            return new ResponseEntity<>(response,HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Fournisseur> mettreAjourFournisseur(@PathVariable Long id, @RequestBody Fournisseur fournisseur){
+        Fournisseur fournisseur1 = fournisseurService.UpdateFournisseur(id,fournisseur);
+        try {
+            return new ResponseEntity<>(fournisseur1,HttpStatus.ACCEPTED);
+        }catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }}
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> supprimerFournissuer(@PathVariable Long id){
+    String op = fournisseurService.DeleteFournisseur(id);
+    try {if (op.equals("L operation a ete effectue avec succes")){
+        return new ResponseEntity<>(op,HttpStatus.OK);}
+        else {
+            return new ResponseEntity<>(op,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+        }catch (Exception e){
+        return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+    }
+
+    }
+
+
+@GetMapping("/search")
+    public ResponseEntity<PageResponse<Fournisseur>>chercherFournissuer(@RequestParam String nom, @PageableDefault(page = 0,size = 10)Pageable pageable){
+    Page<Fournisseur> fournisseurs = fournisseurService.SearchFournissuer(nom,pageable);
+    PageResponse<Fournisseur>response = new PageResponse<>(
+            fournisseurs.getContent(),
+            fournisseurs.getNumber(),
+            fournisseurs.getSize(),
+            fournisseurs.getTotalElements(),
+            fournisseurs.getTotalPages(),
+            fournisseurs.isFirst(),
+            fournisseurs.isLast()
+    );
+    try {
+        return new ResponseEntity<>(response,HttpStatus.OK);
+    }catch (Exception e){
+        return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+    }
+}
+
+
+
+
+
+
+}
