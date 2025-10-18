@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ImplProduitService implements ProduitService {
@@ -16,6 +18,16 @@ public class ImplProduitService implements ProduitService {
     @Override
     public Produit AddProduit(Produit produit) {
         return produitRepo.save(produit);
+    }
+
+  @Override
+    public List<Produit> FindAllListProduit(){
+    return produitRepo.findAll();
+    }
+
+    @Override
+    public Page<Produit> SearchProduit(Pageable pageable, String libelle) {
+        return produitRepo.findByLibelleContainingIgnoreCase(libelle,pageable);
     }
 
     @Override

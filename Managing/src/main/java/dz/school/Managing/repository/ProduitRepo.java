@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProduitRepo extends JpaRepository<Produit,Long> {
     Page<Produit> findAll(Pageable pageable);
+    Page<Produit>findByLibelleContainingIgnoreCase(String libelle,Pageable pageable);
 }

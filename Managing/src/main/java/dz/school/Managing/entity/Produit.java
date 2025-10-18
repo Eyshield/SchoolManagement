@@ -1,5 +1,6 @@
 package dz.school.Managing.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +19,10 @@ public class Produit implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
-    private String Libelle;
-    private int Quantite;
+    private String libelle;
+    private double prix;
+    private int quantite;
     @ManyToMany(mappedBy = "produits")
+    @JsonIgnoreProperties("produits")
     private Collection<Fournisseur> fournisseurs = new ArrayList<>();
 }

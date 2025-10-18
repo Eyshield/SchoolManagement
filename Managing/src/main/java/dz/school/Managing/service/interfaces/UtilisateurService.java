@@ -10,4 +10,5 @@ public interface UtilisateurService {
     Utilisateur UpdateUtilisateur(Long id,Utilisateur utilisateur);
     String DeleteUtilisateur(Long id);
     Page<Utilisateur> FindAllUtilisateur(Pageable pageable);
+    Page<Utilisateur>SearchUtilisateur(String nom,Pageable pageable);
 }

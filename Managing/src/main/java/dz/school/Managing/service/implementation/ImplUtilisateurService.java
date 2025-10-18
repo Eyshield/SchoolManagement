@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 
@@ -29,8 +31,24 @@ public class ImplUtilisateurService implements UtilisateurService {
 
     @Override
     public Utilisateur UpdateUtilisateur(Long id, Utilisateur utilisateur) {
-        utilisateur.setId(id);
-        return utilisateurRepo.save(utilisateur) ;
+        Utilisateur existingUser = utilisateurRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+        existingUser.setNom(utilisateur.getNom());
+        existingUser.setPrenom(utilisateur.getPrenom());
+        existingUser.setEmail(utilisateur.getEmail());
+        existingUser.setDateNaissance(utilisateur.getDateNaissance());
+        existingUser.setAdresse(utilisateur.getAdresse());
+        existingUser.setRole(utilisateur.getRole());
+
+        String nouveauMotDePasse = utilisateur.getPassword();
+
+        if (nouveauMotDePasse != null && !nouveauMotDePasse.isEmpty()) {
+            if (!passwordEncoder.matches(nouveauMotDePasse, existingUser.getPassword())) {
+                existingUser.setPassword(passwordEncoder.encode(nouveauMotDePasse));
+            }
+        }
+
+        return utilisateurRepo.save(existingUser);
     }
 
     @Override
@@ -49,5 +67,10 @@ public class ImplUtilisateurService implements UtilisateurService {
     @Override
     public Page<Utilisateur> FindAllUtilisateur(Pageable pageable) {
         return utilisateurRepo.findAll(pageable);
+    }
+
+    @Override
+    public Page<Utilisateur> SearchUtilisateur(String nom, Pageable pageable) {
+        return utilisateurRepo.findByNomContainingIgnoreCase(nom,pageable);
     }
 }
